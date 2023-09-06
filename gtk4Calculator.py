@@ -1,17 +1,11 @@
 import gi
 
-gi.require_version("Gtk", "3.0")
+gi.require_version("Gtk", "4.0")
 from gi.repository import Gtk
 
 class Calculator(Gtk.Window):
     def __init__(self):
         super().__init__(title="Calculator")
-        # self.set_border_width(10)
-
-        # Header bar and exit button
-        # headerBar = Gtk.HeaderBar()
-        # headerBar.set_show_close_button(True)
-        # headerBar.props.title = "Calculator"
         # self.set_titlebar(headerBar)
 
         # All the buttons
@@ -95,7 +89,7 @@ class Calculator(Gtk.Window):
 
         self.add(grid)
 
-    # logic of buttons
+    # Append button value to entry field
     def clickedButton1(self, entry):
         text = self.entry.get_text() + "1"
         self.entry.set_text(text)
@@ -138,7 +132,8 @@ class Calculator(Gtk.Window):
             return False
         else:
             return True
-    def isInt(self, text): # for negatives and () to add a *
+    # Check for negatives and () to add a *
+    def isInt(self, text): 
         try:
             int(text[-1])
         except ValueError:
@@ -182,6 +177,7 @@ class Calculator(Gtk.Window):
         text = self.entry.get_text()
         if self.isInt(text):
             text += "*(-"
+            # check if there is a number, allows eval to work
         elif not self.signCheck(text):
             text += "(-"
         self.entry.set_text(text)
